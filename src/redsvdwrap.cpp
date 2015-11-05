@@ -30,12 +30,11 @@ List redSymwrap(const MappedSparseMatrix<double> AA, const int num){
     Named("eigenVectors")= Rcpp::wrap(p.eigenVectors()));
 }
 
-SEXP redPCAwrap(SEXP AA,SEXP nn){
-  //  int num=INTEGER(nn)[0];
-  Rcpp::NumericVector dd(nn);
-  int num=(int)dd[0];
-   const MappedSparseMatrix<double> A(as<MappedSparseMatrix<double> >(AA));
+// [[Rcpp::export]]
+List redPCAwrap(const MappedSparseMatrix<double> AA, const int num){
    REDSVD::RedPCA p(A, num);
-   return List::create(Named("principalComponents") = Rcpp::wrap(p.principalComponents()),
-		       Named("scores") =  Rcpp::wrap(p.scores()));
+  
+   return List::create(
+     Named("principalComponents") = Rcpp::wrap(p.principalComponents()),
+     Named("scores") =  Rcpp::wrap(p.scores()));
 }
