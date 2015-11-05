@@ -6,7 +6,7 @@ using namespace Rcpp;
 // [[Rcpp::depends(RcppEigen)]]
 
 // [[Rcpp::export]]
-List redSVDwrap(const Eigen::MappedSparseMatrix<double> AA, const int num){
+List redSVDwrap(const Eigen::MappedSparseMatrix<double> A, const int num){
    RedSVD::RedSVD<Eigen::SparseMatrix<double> > svA(A, num);
   
    return List::create(
@@ -16,7 +16,7 @@ List redSVDwrap(const Eigen::MappedSparseMatrix<double> AA, const int num){
 }
 
 // [[Rcpp::export]]
-List redSymwrap(const Eigen::MappedSparseMatrix<double> AA, const int num){
+List redSymwrap(const Eigen::MappedSparseMatrix<double> A, const int num){
   RedSVD::RedSymEigen<Eigen::SparseMatrix<double> > p(A, num);
   
   return List::create(
@@ -25,7 +25,7 @@ List redSymwrap(const Eigen::MappedSparseMatrix<double> AA, const int num){
 }
 
 // [[Rcpp::export]]
-List redPCAwrap(const Eigen::MappedSparseMatrix<double> AA, const int num){
+List redPCAwrap(const Eigen::MappedSparseMatrix<double> A, const int num){
    RedSVD::RedPCA<Eigen::SparseMatrix<double> > p(A, num);
   
    return List::create(
