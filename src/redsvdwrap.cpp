@@ -11,17 +11,14 @@ using Eigen::MatrixXf;
 using Eigen::MappedSparseMatrix;
 using Eigen::SparseMatrix;
 
-
-SEXP redSVDwrap(SEXP AA,SEXP nn){
-  //  int num=(int)(INTEGER(nn)[0]);
-  Rcpp::NumericVector dd(nn);
-  int num=(int)dd[0];
-   const MappedSparseMatrix<double> A(as<MappedSparseMatrix<double> >(AA));
+// [[Rcpp::export]]
+List redSVDwrap(const MappedSparseMatrix<double> AA, const int num){
    REDSVD::RedSVD svA(A, num);
-   //   return Rcpp::wrap(svA.matrixV());
-   return List::create(Named("V") = Rcpp::wrap(svA.matrixV()),
-		       Named("U")=  Rcpp::wrap(svA.matrixU()),
-		       Named("D")=  Rcpp::wrap(svA.singularValues()));
+  
+   return List::create(
+     Named("V") = Rcpp::wrap(svA.matrixV()),
+     Named("U")=  Rcpp::wrap(svA.matrixU()),
+     Named("D")=  Rcpp::wrap(svA.singularValues()));
 }
 
 SEXP redSymwrap(SEXP AA,SEXP nn){
