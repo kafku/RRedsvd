@@ -1,6 +1,5 @@
 #include <RcppEigen.h>
-#define EIGEN_YES_I_KNOW_SPARSE_MODULE_IS_NOT_STABLE_YET
-#include "redsvd-h/include/RedSVD/RedSVD-h"  
+#include "redsvd-h/include/RedSVD/RedSVD.hpp"  
 using namespace Rcpp;
 
 // [[Rcpp::depends(RcppEigen)]]
