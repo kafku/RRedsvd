@@ -20,8 +20,8 @@ List redSymwrap(const Eigen::MappedSparseMatrix<double> A, const int num){
   RedSVD::RedSymEigen<Eigen::SparseMatrix<double> > p(A, num);
   
   return List::create(
-    Named("eigenValues") = Rcpp::wrap(p.eigenValues()),
-    Named("eigenVectors")= Rcpp::wrap(p.eigenVectors()));
+    Named("eigenValues") = Rcpp::wrap(p.eigenvalues()),
+    Named("eigenVectors")= Rcpp::wrap(p.eigenvectors()));
 }
 
 // [[Rcpp::export]]
@@ -29,6 +29,6 @@ List redPCAwrap(const Eigen::MappedSparseMatrix<double> A, const int num){
    RedSVD::RedPCA<Eigen::SparseMatrix<double> > p(A, num);
   
    return List::create(
-     Named("principalComponents") = Rcpp::wrap(p.principalComponents()),
+     Named("principalComponents") = Rcpp::wrap(p.components()),
      Named("scores") =  Rcpp::wrap(p.scores()));
 }
