@@ -1,0 +1,3 @@
+[submodule "src/redsvd-h"]
+	path = src/redsvd-h
+	url = git@github.com:kafku/redsvd-h.git

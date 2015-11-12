@@ -1,41 +1,10 @@
-#include Makevars.common
-REDDIR=redsvd-0.2.0
-REDSRCDIR=$(REDDIR)/src
-EIGENSRCDIR=.
+## With Rcpp 0.11.0 and later, we no longer need to set PKG_LIBS as there is
+## no user-facing library. The include path to headers is already set by R.
+#PKG_LIBS = 
 
-RCPPPATH=`Rscript -e "Rcpp:::CxxFlags()"`
-RCPPEIGENPATH=`Rscript -e "Rcpp:::CxxFlags()" |sed 's/Rcpp/RcppEigen/'`
+## With R 3.1.0 or later, you can uncomment the following line to tell R to 
+## enable compilation with C++11 (or even C++14) where available
+#CXX_STD = CXX11
 
-PKG_CXXFLAGS +=-I.
-PKG_CXXFLAGS +=-I$(REDSRCDIR)
-PKG_CXXFLAGS +=$(RCPPPATH)
-PKG_CXXFLAGS +=$(RCPPEIGENPATH)
-
-PKG_LIBS += -lz
-PKG_LIBS +=-L.
-PKG_LIBS += -lredsvd
-PKG_LIBS += `Rscript -e "Rcpp:::LdFlags()"`
-
-#PROG=redsvdwrap.a
-PROG=redsvdwrap.so
-
-ifeq "$(WIN)" "64"
-ARCHOPT=-m64
-else
-ARCHOPT=-m32
-endif
-
-all:$(PROG)
-
-util.o:
-	g++ $(ARCHOPT) $(REDSRCDIR)/util.cpp -I$(EIGENSRCDIR) -I$(REDSRCDIR) -fPIC -c
-
-libredsvd.a:util.o
-	ar r $@ util.o	
-
-$(PROG):redsvdwrap.cpp libredsvd.a
-	@echo	$(R_PACKAGE_DIR)
-
-
-clean:
-	rm *.o *.a
+PKG_CXXFLAGS = $(SHLIB_OPENMP_CFLAGS)
+PKG_LIBS = $(SHLIB_OPENMP_CFLAGS)

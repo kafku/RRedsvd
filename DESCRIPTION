@@ -6,5 +6,6 @@ Date: 2013-08-25
 Author: Xiangze Dubian
 Maintainer: Xiangze Dubian <xiangze@gmail.com>
 Description: This package provides Randomized SVD for sparse matrix by using Eigen,RedSVD.
-Depends: Matrix,Rcpp,RcppEigen 
+Imports: Matrix, Rcpp (>= 0.11.5), RcppEigen (>= 0.3.2.4.0)
+LinkingTo: Rcpp, RcppEigen
 License: BSD
