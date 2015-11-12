@@ -1,33 +1,33 @@
+#include <Rcpp.h>
 #include <RcppEigen.h>
 #include "redsvd-h/include/RedSVD/RedSVD.hpp"  
-using namespace Rcpp;
 
 // [[Rcpp::depends(RcppEigen)]]
 
 // [[Rcpp::export]]
-List redSVDwrap(const Eigen::MappedSparseMatrix<double> A, const int num){
+Rcpp::List redSVDwrap(const Eigen::MappedSparseMatrix<double> A, const int num){
    RedSVD::RedSVD<Eigen::MappedSparseMatrix<double> > svA(A, num);
   
-   return List::create(
-     Named("V") = Rcpp::wrap(svA.matrixV()),
-     Named("U")=  Rcpp::wrap(svA.matrixU()),
-     Named("D")=  Rcpp::wrap(svA.singularValues()));
+   return Rcpp::List::create(
+     Rcpp::Named("V") = Rcpp::wrap(svA.matrixV()),
+     Rcpp::Named("U") = Rcpp::wrap(svA.matrixU()),
+     Rcpp::Named("D") = Rcpp::wrap(svA.singularValues()));
 }
 
 // [[Rcpp::export]]
-List redSymwrap(const Eigen::MappedSparseMatrix<double> A, const int num){
+Rcpp::List redSymwrap(const Eigen::MappedSparseMatrix<double> A, const int num){
   RedSVD::RedSymEigen<Eigen::MappedSparseMatrix<double> > p(A, num);
   
-  return List::create(
-    Named("eigenValues") = Rcpp::wrap(p.eigenvalues()),
-    Named("eigenVectors")= Rcpp::wrap(p.eigenvectors()));
+  return Rcpp::List::create(
+    Rcpp::Named("eigenValues") = Rcpp::wrap(p.eigenvalues()),
+    Rcpp::Named("eigenVectors")= Rcpp::wrap(p.eigenvectors()));
 }
 
 // [[Rcpp::export]]
-List redPCAwrap(const Eigen::MappedSparseMatrix<double> A, const int num){
+Rcpp::List redPCAwrap(const Eigen::MappedSparseMatrix<double> A, const int num){
    RedSVD::RedPCA<Eigen::MappedSparseMatrix<double> > p(A, num);
   
-   return List::create(
-     Named("principalComponents") = Rcpp::wrap(p.components()),
-     Named("scores") =  Rcpp::wrap(p.scores()));
+   return Rcpp::List::create(
+     Rcpp::Named("principalComponents") = Rcpp::wrap(p.components()),
+     Rcpp::Named("scores") =  Rcpp::wrap(p.scores()));
 }
