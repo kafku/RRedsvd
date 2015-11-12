@@ -1,5 +1,7 @@
 import( Rcpp )
 import( RcppEigen )
-exportPattern("^[[:alpha:]]+")
-#useDynLib(redsvdwrap)
 useDynLib(RRedsvd)
+export(redpca)
+export(redsvd)
+export(redSymEigen)
+
