@@ -20,7 +20,7 @@ int getRedsvdNumThreads(){
 }
 
 // [[Rcpp::export]]
-Rcpp::List redSVDwrap(const Eigen::MappedSparseMatrix<double> A, const int num){
+Rcpp::List redSVDwrap(const Eigen::MappedSparseMatrix<double> & A, const int num){
    RedSVD::RedSVD<Eigen::MappedSparseMatrix<double> > svA(A, num);
   
    return Rcpp::List::create(
@@ -30,7 +30,7 @@ Rcpp::List redSVDwrap(const Eigen::MappedSparseMatrix<double> A, const int num){
 }
 
 // [[Rcpp::export]]
-Rcpp::List redSymwrap(const Eigen::MappedSparseMatrix<double> A, const int num){
+Rcpp::List redSymwrap(const Eigen::MappedSparseMatrix<double> & A, const int num){
   RedSVD::RedSymEigen<Eigen::MappedSparseMatrix<double> > p(A, num);
   
   return Rcpp::List::create(
@@ -39,7 +39,7 @@ Rcpp::List redSymwrap(const Eigen::MappedSparseMatrix<double> A, const int num){
 }
 
 // [[Rcpp::export]]
-Rcpp::List redPCAwrap(const Eigen::MappedSparseMatrix<double> A, const int num){
+Rcpp::List redPCAwrap(const Eigen::MappedSparseMatrix<double> & A, const int num){
    RedSVD::RedPCA<Eigen::MappedSparseMatrix<double> > p(A, num);
   
    return Rcpp::List::create(
