@@ -4,6 +4,21 @@
 
 // [[Rcpp::depends(RcppEigen)]]
 
+//' @title Specify the number of threads
+//' @param n the number of theads
+//' @export
+// [[Rcpp::export]]
+void setRedsvdNumThreads(const int n){
+	Eigen::setNbThreads(n);
+}
+
+//' @title Query the number of threads
+//' @export
+// [[Rcpp::export]]
+int getRedsvdNumThreads(){
+	return Eigen::nbThreads();
+}
+
 // [[Rcpp::export]]
 Rcpp::List redSVDwrap(const Eigen::MappedSparseMatrix<double> A, const int num){
    RedSVD::RedSVD<Eigen::MappedSparseMatrix<double> > svA(A, num);

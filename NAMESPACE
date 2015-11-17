@@ -4,4 +4,6 @@ useDynLib(RRedsvd)
 export(redpca)
 export(redsvd)
 export(redSymEigen)
+export(setRedsvdNumThreads)
+export(getRedsvdNumThreads)
 
