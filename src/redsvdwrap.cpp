@@ -1,6 +1,7 @@
 #include <Rcpp.h>
 #include <RcppEigen.h>
 #include "redsvd-h/include/RedSVD/RedSVD.hpp"  
+#include "RRedsvdRNG.hpp"
 
 // [[Rcpp::depends(RcppEigen)]]
 
@@ -21,7 +22,9 @@ int getRedsvdNumThreads(){
 
 // [[Rcpp::export]]
 Rcpp::List redSVDwrap(const Eigen::MappedSparseMatrix<double> & A, const int num){
-   RedSVD::RedSVD<Eigen::MappedSparseMatrix<double> > svA(A, num);
+   RedSVD::RedSVD<
+    Eigen::MappedSparseMatrix<double>, 
+    RcppGaussian> svA(A, num);
   
    return Rcpp::List::create(
      Rcpp::Named("V") = Rcpp::wrap(svA.matrixV()),
@@ -31,7 +34,9 @@ Rcpp::List redSVDwrap(const Eigen::MappedSparseMatrix<double> & A, const int num
 
 // [[Rcpp::export]]
 Rcpp::List redSymwrap(const Eigen::MappedSparseMatrix<double> & A, const int num){
-  RedSVD::RedSymEigen<Eigen::MappedSparseMatrix<double> > p(A, num);
+  RedSVD::RedSymEigen<
+    Eigen::MappedSparseMatrix<double>,
+    RcppGaussian> p(A, num);
   
   return Rcpp::List::create(
     Rcpp::Named("eigenValues") = Rcpp::wrap(p.eigenvalues()),
@@ -40,7 +45,9 @@ Rcpp::List redSymwrap(const Eigen::MappedSparseMatrix<double> & A, const int num
 
 // [[Rcpp::export]]
 Rcpp::List redPCAwrap(const Eigen::MappedSparseMatrix<double> & A, const int num){
-   RedSVD::RedPCA<Eigen::MappedSparseMatrix<double> > p(A, num);
+   RedSVD::RedPCA<
+    Eigen::MappedSparseMatrix<double>,
+    RcppGaussian> p(A, num);
   
    return Rcpp::List::create(
      Rcpp::Named("principalComponents") = Rcpp::wrap(p.components()),
